@@ -45,7 +45,7 @@ function Crops() {
                 <th
                   scope='colgroup'
                   colSpan={1}
-                  className='sticky top-0 bg-white bg-opacity-75 py-4 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-3'
+                  className='sticky top-16 bg-white bg-opacity-75 py-4 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-3'
                 >
                   {groupName}
                 </th>
