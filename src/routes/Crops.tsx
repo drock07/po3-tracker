@@ -12,6 +12,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 import crops, { type SeedTier } from '../data/crops'
 import { useSearchParams } from 'react-router-dom'
+import { useSession } from '../contexts/SessionsContext'
 
 function groupBy<T, K extends keyof any>(
   items: T[],
@@ -62,6 +63,7 @@ const filters = [
 ]
 
 export default function Crops() {
+  const [session, { toggleCrop }] = useSession()
   const [searchParams, setSearchParams] = useSearchParams()
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
   const sortOption = sortOptions.find(
@@ -494,7 +496,7 @@ export default function Crops() {
           )}
         </section>
 
-        {/* Product grid */}
+        {/* crops grid */}
         <section
           aria-labelledby='crops-heading'
           className='mx-auto max-w-2xl px-4 pb-16 pt-12 sm:px-6 sm:pb-24 sm:pt-16 lg:max-w-7xl lg:px-8'
@@ -513,8 +515,13 @@ export default function Crops() {
                   {items.map(({ id, name, image }) => (
                     <button
                       key={id}
-                      className='col-span-1 flex items-center rounded-md border border-gray-200 bg-white py-2 text-left shadow-sm active:shadow-none'
-                      onClick={() => console.log('clicked', name)}
+                      className={clsx(
+                        'col-span-1 flex items-center rounded-md border border-gray-200 bg-white py-2 text-left shadow-sm active:shadow-none',
+                        {
+                          'opacity-50': session.crops[id],
+                        }
+                      )}
+                      onClick={() => toggleCrop(id)}
                     >
                       <div
                         className={clsx(
@@ -534,17 +541,9 @@ export default function Crops() {
                           {/* <p className='text-gray-500'>10 Members</p> */}
                         </div>
                         <div className='flex-shrink-0 pr-2 text-black'>
-                          <CheckCircleIcon className='h-6 w-6' />
-                          {/* <button
-                      type='button'
-                      className='inline-flex h-8 w-8 items-center justify-center rounded-full bg-transparent bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-                    >
-                      <span className='sr-only'>Open options</span>
-                      <EllipsisVerticalIcon
-                        className='h-5 w-5'
-                        aria-hidden='true'
-                      />
-                    </button> */}
+                          {session.crops[id] && (
+                            <CheckCircleIcon className='h-6 w-6' />
+                          )}
                         </div>
                       </div>
                     </button>

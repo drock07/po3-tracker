@@ -2,6 +2,7 @@ import { Outlet, NavLink } from 'react-router-dom'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import SessionPicker from './SessionPicker'
 
 const user = {
   name: 'Tom Cook',
@@ -67,13 +68,7 @@ function App() {
 
                   {/* Desktop right stuff */}
                   <div className='hidden sm:ml-6 sm:flex sm:items-center'>
-                    {/* This is where the session picker will go */}
-                    {/* <Listbox>
-                      <Listbox.Button>fart</Listbox.Button>
-                      <Listbox.Options>
-                        <Listbox.Option value={1}>Session 1</Listbox.Option>
-                      </Listbox.Options>
-                    </Listbox> */}
+                    <SessionPicker />
                   </div>
 
                   <div className='-mr-2 flex items-center sm:hidden'>

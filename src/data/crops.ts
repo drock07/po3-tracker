@@ -1,13 +1,4 @@
-export type SeedTier = 1 | 2 | 3 | 4 | 5 | 6
-
-export interface Seed {
-  id: string
-  name: string
-  tier: SeedTier
-  image: string
-}
-
-const seeds: Seed[] = [
+const seeds = [
   // tier 1
   {
     id: 'dirt',
@@ -757,6 +748,15 @@ const seeds: Seed[] = [
     tier: 6,
     image: 'neutronium_essence.png',
   },
-]
+] as const
 
-export default seeds
+export type SeedTier = (typeof seeds)[number]['tier']
+export type SeedIds = (typeof seeds)[number]['id']
+export interface Seed {
+  readonly id: SeedIds
+  readonly name: string
+  readonly tier: SeedTier
+  readonly image: string
+}
+
+export default seeds as readonly Seed[]

@@ -8,6 +8,8 @@ import {
   Navigate,
 } from 'react-router-dom'
 
+import { SessionsContextProvider } from './contexts/SessionsContext'
+
 import App from './routes/App'
 import './index.css'
 import Crops from './routes/Crops'
@@ -23,6 +25,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SessionsContextProvider>
+      <RouterProvider router={router} />
+    </SessionsContextProvider>
   </React.StrictMode>
 )
