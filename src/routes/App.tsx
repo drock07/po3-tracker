@@ -29,7 +29,7 @@ function App() {
       <div className='min-h-full'>
         <Disclosure
           as='nav'
-          className='sticky top-0 border-b border-gray-200 bg-white'
+          className='sticky top-0 z-10 border-b border-gray-200 bg-white'
         >
           {({ open }) => (
             <>
