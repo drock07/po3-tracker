@@ -61,6 +61,11 @@ const filters = [
       { value: '6', label: 'Tier 6' },
     ],
   },
+  {
+    id: 'completed',
+    name: 'Completed',
+    options: [{ value: 'hide', label: 'Hide Completed' }],
+  },
 ]
 
 export default function Crops() {
@@ -96,6 +101,11 @@ export default function Crops() {
     .map((f) => Number(f.value) as SeedTier)
 
   const filteredCrops = crops
+    .filter((seed) => {
+      return activeFilters.find((f) => f.id === 'completed')
+        ? !session.crops[seed.id]
+        : true
+    })
     .filter((seed) => {
       return tierFilters.length > 0 ? tierFilters.includes(seed.tier) : true
     })
