@@ -9,6 +9,7 @@ import {
 } from '@headlessui/react'
 import { XMarkIcon, CheckCircleIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { NumericFormat } from 'react-number-format'
 
 import crops, { type SeedTier } from '../data/crops'
 import { useSearchParams } from 'react-router-dom'
@@ -94,20 +95,75 @@ export default function Crops() {
     .filter((f) => f.id === 'tier')
     .map((f) => Number(f.value) as SeedTier)
 
+  const filteredCrops = crops
+    .filter((seed) => {
+      return tierFilters.length > 0 ? tierFilters.includes(seed.tier) : true
+    })
+    .sort((a, b) => {
+      const nameA = a.name.toLowerCase()
+      const nameB = b.name.toLowerCase()
+      let compResult = nameA > nameB ? 1 : nameA < nameB ? -1 : 0
+      if (sortOption?.value === 'alpha:desc') compResult *= -1
+      return compResult
+    })
+
   const filteredCropGroups = groupBy(
-    crops
-      .filter((seed) => {
-        return tierFilters.length > 0 ? tierFilters.includes(seed.tier) : true
-      })
-      .sort((a, b) => {
-        const nameA = a.name.toLowerCase()
-        const nameB = b.name.toLowerCase()
-        let compResult = nameA > nameB ? 1 : nameA < nameB ? -1 : 0
-        if (sortOption?.value === 'alpha:desc') compResult *= -1
-        return compResult
-      }),
+    filteredCrops,
     (seed) => (groupByOption?.value === 'none' ? '' : seed.tier),
     (value) => (groupByOption?.value === 'none' ? '' : `Tier ${value}`)
+  )
+
+  const filteredIncompleteCrops = filteredCrops.filter(
+    (seed) => !session.crops[seed.id]
+  )
+
+  const essenceCounts = filteredIncompleteCrops.reduce(
+    (counts, seed) => {
+      switch (seed.tier) {
+        case 1:
+          counts[1] += 8
+          break
+        case 2:
+          counts[1] += 32
+          counts[2] += 8
+          break
+        case 3:
+          counts[1] += 128
+          counts[2] += 32
+          counts[3] += 8
+          break
+        case 4:
+          counts[1] += 512
+          counts[2] += 128
+          counts[3] += 32
+          counts[4] += 8
+          break
+        case 5:
+          counts[1] += 2048
+          counts[2] += 512
+          counts[3] += 128
+          counts[4] += 32
+          counts[5] += 8
+          break
+        case 6:
+          counts[1] += 8192
+          counts[2] += 2048
+          counts[3] += 512
+          counts[4] += 128
+          counts[5] += 32
+          counts[6] += 8
+          break
+      }
+      return counts
+    },
+    {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+    }
   )
 
   const toggleFilter = (id: string, value: string) => {
@@ -261,6 +317,197 @@ export default function Crops() {
             <h1 className='text-3xl font-bold tracking-tight text-gray-900'>
               Mystical Agriculture
             </h1>
+            <h3 className='mt-8 text-sm uppercase text-gray-500'>
+              Required Materials
+            </h3>
+            <div className='mt-2 flex flex-row flex-wrap gap-x-6'>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/inferium_essence.png'
+                  alt='Inferium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={essenceCounts[1]}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/prudentium_essence.png'
+                  alt='Prudentium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={essenceCounts[2]}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/intermedium_essence.png'
+                  alt='Intermedium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={essenceCounts[3]}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/superium_essence.png'
+                  alt='Superium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={essenceCounts[4]}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/supremium_essence.png'
+                  alt='Supremium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={essenceCounts[5]}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/insanium_essence.png'
+                  alt='Insanium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={essenceCounts[6]}
+                />
+              </div>
+            </div>
+            <div className='jube mt-4 flex flex-row flex-wrap gap-x-6 border-t'>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/inferiumcrystal.png'
+                  alt='Inferium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={Math.ceil(essenceCounts[1] / 256)}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/prudentiumcrystal.png'
+                  alt='Prudentium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={Math.ceil(essenceCounts[2] / 512)}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/intermediumcrystal.png'
+                  alt='Intermedium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={Math.ceil(essenceCounts[3] / 1024)}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/superiumcrystal.png'
+                  alt='Superium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={Math.ceil(essenceCounts[4] / 2048)}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/supremiumcrystal.png'
+                  alt='Supremium Essence'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={Math.ceil(essenceCounts[5] / 4096)}
+                />
+              </div>
+            </div>
+            <div className='jube mt-4 flex flex-row flex-wrap gap-x-6 border-t'>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/crafting_tier1_crafting_seed.png'
+                  alt='Seeds'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={filteredIncompleteCrops.length}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/crafting_prosperity_shard.png'
+                  alt='Prosperity Shards'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={filteredIncompleteCrops.length * 4}
+                />
+              </div>
+              <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
+                <img
+                  src='/images/diamond.png'
+                  alt='Diamonds'
+                  className='h-8 w-8 object-cover'
+                />
+                <NumericFormat
+                  displayType='text'
+                  thousandsGroupStyle='thousand'
+                  thousandSeparator=','
+                  value={Math.ceil(essenceCounts[1] / 256)}
+                />
+              </div>
+            </div>
             {/* <p className='mt-4 max-w-xl text-sm text-gray-700'>
               Our thoughtfully designed workspace objects are crafted in limited
               runs. Improve your productivity and organization with these sale
