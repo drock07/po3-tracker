@@ -470,7 +470,7 @@ export default function Crops() {
             <div className='jube mt-4 flex flex-row flex-wrap gap-x-6 border-t'>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/crafting_tier1_crafting_seed.png'
+                  src='/images/seed.png'
                   alt='Seeds'
                   className='h-8 w-8 object-cover'
                 />
