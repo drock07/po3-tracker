@@ -20,7 +20,10 @@ const router = createBrowserRouter(
       <Route path='crops' element={<Crops />} />
       <Route index element={<Navigate to='crops' />} />
     </Route>
-  )
+  ),
+  {
+    basename: '/po3-tracker',
+  }
 )
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
