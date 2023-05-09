@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   RouterProvider,
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
   Navigate,
@@ -14,16 +14,13 @@ import App from './routes/App'
 import './index.css'
 import Crops from './routes/Crops'
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route path='crops' element={<Crops />} />
       <Route index element={<Navigate to='crops' />} />
     </Route>
-  ),
-  {
-    basename: '/po3-tracker',
-  }
+  )
 )
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

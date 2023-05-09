@@ -14,7 +14,7 @@ const navigation = [
   {
     label: 'Mystical Agriculture',
     to: 'crops',
-    image: '/images/inferium_essence.png',
+    image: 'images/inferium_essence.png',
   },
   // { label: 'AE2', to: 'ae2' },
 ]
