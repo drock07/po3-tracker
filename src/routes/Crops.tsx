@@ -333,7 +333,7 @@ export default function Crops() {
             <div className='mt-2 flex flex-row flex-wrap gap-x-6'>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/inferium_essence.png'
+                  src='images/inferium_essence.png'
                   alt='Inferium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -346,7 +346,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/prudentium_essence.png'
+                  src='images/prudentium_essence.png'
                   alt='Prudentium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -359,7 +359,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/intermedium_essence.png'
+                  src='images/intermedium_essence.png'
                   alt='Intermedium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -372,7 +372,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/superium_essence.png'
+                  src='images/superium_essence.png'
                   alt='Superium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -385,7 +385,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/supremium_essence.png'
+                  src='images/supremium_essence.png'
                   alt='Supremium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -398,7 +398,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/insanium_essence.png'
+                  src='images/insanium_essence.png'
                   alt='Insanium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -413,7 +413,7 @@ export default function Crops() {
             <div className='jube mt-4 flex flex-row flex-wrap gap-x-6 border-t'>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/inferiumcrystal.png'
+                  src='images/inferiumcrystal.png'
                   alt='Inferium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -426,7 +426,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/prudentiumcrystal.png'
+                  src='images/prudentiumcrystal.png'
                   alt='Prudentium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -439,7 +439,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/intermediumcrystal.png'
+                  src='images/intermediumcrystal.png'
                   alt='Intermedium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -452,7 +452,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/superiumcrystal.png'
+                  src='images/superiumcrystal.png'
                   alt='Superium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -465,7 +465,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/supremiumcrystal.png'
+                  src='images/supremiumcrystal.png'
                   alt='Supremium Essence'
                   className='h-8 w-8 object-cover'
                 />
@@ -480,7 +480,7 @@ export default function Crops() {
             <div className='jube mt-4 flex flex-row flex-wrap gap-x-6 border-t'>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/seed.png'
+                  src='images/seed.png'
                   alt='Seeds'
                   className='h-8 w-8 object-cover'
                 />
@@ -493,7 +493,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/crafting_prosperity_shard.png'
+                  src='images/crafting_prosperity_shard.png'
                   alt='Prosperity Shards'
                   className='h-8 w-8 object-cover'
                 />
@@ -506,7 +506,7 @@ export default function Crops() {
               </div>
               <div className='mt-2 flex items-center gap-1 text-sm text-gray-600'>
                 <img
-                  src='/images/diamond.png'
+                  src='images/diamond.png'
                   alt='Diamonds'
                   className='h-8 w-8 object-cover'
                 />
@@ -772,6 +772,8 @@ export default function Crops() {
                   {items.map(({ id, name, image }) => (
                     <button
                       key={id}
+                      type='button'
+                      role='listitem'
                       className={clsx(
                         'col-span-1 flex items-center rounded-md border border-gray-200 bg-white py-2 text-left shadow-sm active:shadow-none',
                         {
@@ -786,7 +788,8 @@ export default function Crops() {
                         )}
                       >
                         <img
-                          src={`/images/${image}`}
+                          src={`images/${image}`}
+                          alt={name}
                           className='h-8 w-8 object-cover'
                         />
                       </div>
